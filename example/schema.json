@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "attributes": {
+    "title": "NewsLetter form",
+    "description": "Sign up for free newsletters and get more delivered to your inbox",
+    "size": "small",
+    "class": "newsletter-form"
+  },
+  "properties": {
+    "name": {
+      "type": "string",
+      "minLength": 4,
+      "maxLength": 30,
+      "attributes": {
+        "label": "[label] Full Name",
+        "description": "[title] Please enter your full name. Min length 4, max length 30",
+        "placeholder": "Your Full Name"
+      }
+    },
+    "email": {
+      "type": "string",
+      "maxLength": 255,
+      "attributes": {
+        "type": "email",
+        "placeholder": "[placeholder] Your Email",
+        "label": "[label] Emails",
+        "description": "[description] Please enter your email"
+      }
+    },
+    "list": {
+      "type": "string",
+      "enum": [
+        "Daily News",
+        "Promotion"
+      ],
+      "attributes": {
+        "placeholder": "Select your list subscription",
+        "description": "Please select your list subscription"
+      }
+    },
+    "multiple_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "title": "Multi list",
+      "enum": [
+        "Daily News",
+        "Weekly News",
+        "Monthly News",
+        "Promotion"
+      ],
+      "attributes": {
+        "v-if": "instance.name.length > 5",
+        "type": "select",
+        "label": "Multiple list",
+        "multiple": true,
+        "placeholder": "Select many",
+        "description": "Select many, minimum one"
+      }
+    },
+    "auto_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "attributes": {
+        "label": "Multiple remote list",
+        "type": "select",
+        "filterable": true,
+        "multiple": true,
+        "placeholder": "Select remote items by input",
+        "description": "You should select minimum one item"
+      }
+    },
+    "agree": {
+      "type": "boolean",
+      "default": false,
+      "attributes": {
+        "label": "Я согласен",
+        "type": "checkbox"
+      }
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "name",
+    "email",
+    "lists",
+    "agree"
+  ]
+}
