@@ -1,4 +1,3 @@
-import Vue from 'vue'
 import EfInput from './element/ef-input.vue'
 import EfSelect from './element/ef-select.vue'
 import EfCheckbox from './element/ef-checkbox.vue'
@@ -8,17 +7,9 @@ import EfRate from './element/ef-rate.vue'
 import EfSlider from './element/ef-slider.vue'
 import {merge} from './extend'
 
-Vue.component(EfInput.name, EfInput)
-Vue.component(EfCheckbox.name, EfCheckbox)
-Vue.component(EfColorPicker.name, EfColorPicker)
-Vue.component(EfDatePicker.name, EfDatePicker)
-Vue.component(EfRate.name, EfRate)
-Vue.component(EfSelect.name, EfSelect)
-Vue.component(EfSlider.name, EfSlider)
+const NameToComponent = {'form': 'ElForm'}
 
-const NameToComponent = {'form': 'el-form'}
-
-const ElementAutoForm = Vue.extend({
+const ElementAutoFormDefinition = {
   name: 'element-auto-form',
   props: {
     schema: {type: Object, required: true},
@@ -161,9 +152,20 @@ const ElementAutoForm = Vue.extend({
       })
     }
   }
-})
+}
 
-console.log('Vue is ', Vue, ' try to register ', 'element-auto-form', ElementAutoForm.name, ElementAutoForm)
-Vue.component('element-auto-form', ElementAutoForm)
+function install (Vue) {
+  console.log('Vue is ', ' try to register ', 'element-auto-form', ElementAutoFormDefinition.name, ', has el form ', Vue.component('ElForm'))
+  Vue.component(EfInput.name, EfInput)
+  Vue.component(EfCheckbox.name, EfCheckbox)
+  Vue.component(EfColorPicker.name, EfColorPicker)
+  Vue.component(EfDatePicker.name, EfDatePicker)
+  Vue.component(EfRate.name, EfRate)
+  Vue.component(EfSelect.name, EfSelect)
+  Vue.component(EfSlider.name, EfSlider)
+  Vue.component('element-auto-form', Vue.extend(ElementAutoFormDefinition))
+}
 
-export default ElementAutoForm
+export default {
+  install
+}
